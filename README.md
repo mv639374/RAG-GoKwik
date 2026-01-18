@@ -1,4 +1,4 @@
-**RAG Document Q&A System**
+# RAG Document Q&A System
 
 This project is a Retrieval-Augmented Generation (RAG) app that answers questions strictly based on a local corpus of documents (PDF/DOCX/TXT). It retrieves relevant chunks, reranks them, and then uses an LLM to generate grounded answers with citations. The app ships with Streamlit UI for interactive use.
 
