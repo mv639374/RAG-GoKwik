@@ -30,8 +30,7 @@ details.md
 .DS_Store
 
 # Qdrant Data
-qdrant_data/
-*.pkl
+# *.pkl
 
 # Logs
 *.log
