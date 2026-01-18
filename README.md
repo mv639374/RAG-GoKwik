@@ -43,14 +43,6 @@ This project is a Retrieval-Augmented Generation (RAG) app that answers question
    streamlit run app.py
    ```
 
-7. **Optional: CLI usage**
-   ```bash
-   # Interactive
-   python main.py --interactive
-
-   # Single query
-   python main.py --query "What is machine learning?"
-   ```
 
 ***
 
