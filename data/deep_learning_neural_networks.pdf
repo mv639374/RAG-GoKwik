@@ -1,0 +1,132 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /Resources 4 0 R /MediaBox [0 0 612 792] /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> >> >>
+endobj
+5 0 obj
+<< /Length 3500 >>
+stream
+BT
+/F1 24 Tf
+50 750 Td
+(Deep Learning and Neural Networks) Tj
+ET
+BT
+/F1 14 Tf
+50 720 Td
+(Introduction) Tj
+ET
+BT
+/F1 12 Tf
+50 700 Td
+(Deep Learning is a subset of machine learning that uses artificial neural networks with multiple layers) Tj
+0 -15 Td
+(to learn representations of data. Inspired by biological neural networks in animal brains, deep learning) Tj
+0 -15 Td
+(models automatically discover the representations needed for detection or classification from raw input.) Tj
+0 -15 Td
+(Deep learning has revolutionized computer vision, natural language processing, and speech recognition.) Tj
+ET
+BT
+/F1 14 Tf
+50 595 Td
+(Fundamentals of Neural Networks) Tj
+ET
+BT
+/F1 12 Tf
+50 575 Td
+(A neural network consists of interconnected nodes organized in layers: input layer, hidden layers, and) Tj
+0 -15 Td
+(output layer. Each connection has an associated weight that determines the strength of influence. During) Tj
+0 -15 Td
+(forward propagation, data flows through the network. Backpropagation adjusts weights based on error,) Tj
+0 -15 Td
+(enabling learning. Activation functions like ReLU, Sigmoid, and Tanh introduce non-linearity, allowing) Tj
+0 -15 Td
+(networks to learn complex patterns.) Tj
+ET
+BT
+/F1 14 Tf
+50 460 Td
+(Convolutional Neural Networks (CNNs)) Tj
+ET
+BT
+/F1 12 Tf
+50 440 Td
+(CNNs are specialized for image processing. They use convolutional layers that apply filters to detect) Tj
+0 -15 Td
+(features like edges, textures, and shapes. Pooling layers reduce spatial dimensions while preserving) Tj
+0 -15 Td
+(important information. Fully connected layers perform classification based on learned features. CNNs power) Tj
+0 -15 Td
+(applications like object detection, facial recognition, and medical image analysis.) Tj
+ET
+BT
+/F1 14 Tf
+50 355 Td
+(Recurrent Neural Networks (RNNs)) Tj
+ET
+BT
+/F1 12 Tf
+50 335 Td
+(RNNs process sequential data by maintaining internal state. Long Short-Term Memory (LSTM) and) Tj
+0 -15 Td
+(Gated Recurrent Unit (GRU) architectures address the vanishing gradient problem. Attention mechanisms) Tj
+0 -15 Td
+(allow networks to focus on relevant parts of input sequences. Transformers, based on pure attention, have) Tj
+0 -15 Td
+(become state-of-the-art for natural language processing tasks like translation and summarization.) Tj
+ET
+BT
+/F1 14 Tf
+50 235 Td
+(Training Deep Learning Models) Tj
+ET
+BT
+/F1 12 Tf
+50 215 Td
+(Training requires large labeled datasets and significant computational resources (GPUs/TPUs). Optimization) Tj
+0 -15 Td
+(algorithms like SGD, Adam, and RMSprop adjust weights efficiently. Regularization techniques including) Tj
+0 -15 Td
+(dropout and batch normalization prevent overfitting. Data augmentation increases dataset diversity. Transfer) Tj
+0 -15 Td
+(learning leverages pre-trained models for faster convergence on new tasks.) Tj
+ET
+BT
+/F1 14 Tf
+50 130 Td
+(Applications and Future Directions) Tj
+ET
+BT
+/F1 12 Tf
+50 110 Td
+(Deep learning powers modern AI: autonomous vehicles, recommender systems, natural language processing,) Tj
+0 -15 Td
+(and drug discovery. Research frontiers include few-shot learning, explainability, and energy efficiency.) Tj
+0 -15 Td
+(As deep learning continues to advance, it will enable new capabilities and applications.) Tj
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000214 00000 n 
+0000000314 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+3866
+%%EOF
