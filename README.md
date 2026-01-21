@@ -2,49 +2,49 @@
 
 This project is a Retrieval-Augmented Generation (RAG) app that answers questions strictly based on a local corpus of documents (PDF/DOCX/TXT). It retrieves relevant chunks, reranks them, and then uses an LLM to generate grounded answers with citations. The app ships with Streamlit UI for interactive use.
 
-***
+---
 
 ### 1. How to Run the App
 
 1. **Clone and enter the project**
+
    ```bash
    git clone <your-repo-url>
    cd gokwik
    ```
-
 2. **Create and activate virtualenv**
+
    ```bash
    python3 -m venv venv
    source venv/bin/activate        # on Windows: venv\Scripts\activate
    ```
-
 3. **Install dependencies**
+
    ```bash
    pip install -r requirements.txt
    ```
-
 4. **Set environment variables**
 
    Create a `.env` file in the project root:
+
    ```txt
    GEMINI_API_KEY=your_gemini_api_key_here
    ```
-
 5. **Add documents**
 
    Put your `.pdf`, `.docx`, or `.txt` files into the `data/` folder:
+
    ```bash
    mkdir -p data
    # copy your docs into data/
    ```
-
 6. **Run the Streamlit UI**
+
    ```bash
    streamlit run app.py
    ```
 
-
-***
+---
 
 ### 2. Tools and Models Used
 
@@ -65,7 +65,7 @@ This project is a Retrieval-Augmented Generation (RAG) app that answers question
 - **UI**
   - Streamlit for a simple web interface
 
-***
+---
 
 ### 3. Code Structure (src/ + app.py)
 
@@ -76,6 +76,7 @@ The core logic is intentionally split into five focused modules under `src/` plu
 Responsible for loading raw documents and turning them into overlapping text chunks.
 
 **Main class:**
+
 - `DocumentParser`
   - `__init__(chunk_size: int = 1024, chunk_overlap: int = 200)`
     - Configures how big each chunk is and how much overlap exists between adjacent chunks (helps with context continuity).
@@ -86,15 +87,16 @@ Responsible for loading raw documents and turning them into overlapping text chu
   - `process_all(data_folder: str) -> List[Chunk]`
     - Convenience method: load all documents and return a flat list of chunks ready for embedding and indexing.
 
-The parser hides all format-specific details so the rest of the pipeline deals purely with text chunks. 
+The parser hides all format-specific details so the rest of the pipeline deals purely with text chunks.
 
-***
+---
 
 #### `src/embeddings.py`
 
 Encapsulates both cloud and local embedding generation and exposes a uniform interface.
 
 **Main class:**
+
 - `EmbeddingGenerator`
   - `__init__(primary_model: str = "gemini")`
     - Initializes Gemini embeddings and the local `all-MiniLM-L6-v2` model. Stores dimensions for each.
@@ -109,7 +111,7 @@ Encapsulates both cloud and local embedding generation and exposes a uniform int
 
 This abstraction keeps all embedding details in one place, making it easy to switch models later. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/87718418/3fd78510-8104-4ecd-b1f5-67fea5c4ccee/embeddings.py)
 
-***
+---
 
 #### `src/vector_store.py` / `src/retriever.py`
 
@@ -118,6 +120,7 @@ Depending on the refactor, you’ll either see separate `vector_store.py` + `bm2
 **If using combined `retriever.py`:**
 
 **Main classes:**
+
 - `VectorStore`
   - `__init__(embedding_dim: int)`
     - Sets up a local Qdrant collection (`./qdrant_data`) with the given dimension.
@@ -145,13 +148,14 @@ Depending on the refactor, you’ll either see separate `vector_store.py` + `bm2
 
 These classes collectively handle retrieval, fusion, and reranking. They are deliberately separated so you can swap out any layer without touching the others. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/87718418/4e791328-9274-458f-bc9b-42edb53e35d2/bm25_retriever.py)
 
-***
+---
 
 #### `src/llm_agent.py`
 
 Responsible for taking top-ranked chunks and producing a grounded, cited answer.
 
 **Main class:**
+
 - `LLMAgent`
   - `__init__(model_name: str = "gemini-2.0-flash", temperature: float = 0.3, no_answer_threshold: float = 0.5)`
     - Configures the LLM, creativity, and a threshold below which the agent prefers to say “I don’t know” instead of hallucinating.
@@ -168,13 +172,14 @@ Responsible for taking top-ranked chunks and producing a grounded, cited answer.
 
 This module enforces the “no hallucination” rule: if the context does not support the answer, it prefers a safe, honest response. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/87718418/4f6e3981-e0cf-423f-a20d-10120c979d8f/llm_agent.py)
 
-***
+---
 
 #### `src/rag_pipeline.py` / `src/pipeline.py`
 
 This is the orchestrator that ties everything together into a single RAG pipeline.
 
 **Main class:**
+
 - `RAGPipeline`
   - `__init__(data_folder: str = "data", chunk_size: int = 1024, chunk_overlap: int = 200, use_reranking: bool = True)`
     - Instantiates `DocumentParser`, `EmbeddingGenerator`, `VectorStore`, `BM25Retriever`, `HybridRetriever`, `Reranker`, and `LLMAgent`. Decides embedding dimension based on primary model (Gemini vs local) and configures chunking parameters. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/87718418/90586abe-47a5-4c07-ab1c-3884c18a7dea/rag_pipeline.py)
@@ -191,13 +196,14 @@ This is the orchestrator that ties everything together into a single RAG pipelin
 
 This class is what both the CLI and Streamlit app call. It gives you a single entry point for the whole system. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/87718418/90586abe-47a5-4c07-ab1c-3884c18a7dea/rag_pipeline.py)
 
-***
+---
 
 #### `app.py` (Streamlit UI)
 
 A thin UI layer on top of `RAGPipeline`.
 
 **Key parts:**
+
 - App layout:
   - Sets page title, icon, layout, and some basic CSS for styling the answer box, metrics, and sidebar.
 - `load_pipeline()`
@@ -221,32 +227,33 @@ A thin UI layer on top of `RAGPipeline`.
 
 The UI is intentionally simple: it exposes the core behavior of the RAG system without hiding the internal reasoning (sources and timing are visible) but keeps the interface clean and easy to use.
 
-***
+---
 
 ### 4. What Can Be Improved Over Time
 
 This version is intentionally minimal and focused, but there are several natural extensions:
 
 1. **Better comparison handling**
+
    - Add a dedicated prompt template for “compare X vs Y” questions.
    - Possibly split comparison queries into sub-questions and merge the answers.
-
 2. **Richer evaluation and monitoring**
+
    - Integrate a small evaluation dashboard (e.g., Streamlit tab) to visualize metrics (MRR, latency) over time.
    - Log real user queries and outcomes (with anonymization) for continuous improvement.
-
 3. **Semantic chunking**
-   - Replace fixed-size chunking with sentence- or paragraph-aware segmentation using a simple NLP pass, to avoid cutting important context mid-thought.
 
+   - Replace fixed-size chunking with sentence- or paragraph-aware segmentation using a simple NLP pass, to avoid cutting important context mid-thought.
 4. **Caching and cost optimization**
+
    - Cache embeddings and LLM responses for repeated queries.
    - Add optional local-only mode (no external LLM) for offline experimentation.
-
 5. **Multi-user / multi-collection support**
+
    - Support multiple “workspaces” or “collections”, each with its own document set.
    - Add simple auth if deployed in a shared environment.
-
 6. **File uploads from the UI**
+
    - Allow users to upload new documents directly from the Streamlit app and trigger incremental ingestion without restarting the service.
 
 Even without these extras, the current setup already behaves like a small, production-ready RAG system suitable for internal knowledge bases and technical documentation search.
